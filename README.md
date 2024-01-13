@@ -4,8 +4,6 @@ A library for generating short, user-friendly, random IDs.
 
 ## Install
 
-Requires Node 7 with the `--harmony` flag or greater.
-
     npm install simple-id
 
 ## Usage
