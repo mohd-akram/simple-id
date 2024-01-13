@@ -1,20 +1,17 @@
-simple-id
-=========
+# simple-id
 
 A library for generating short, user-friendly, random IDs.
 
-Install
--------
+## Install
 
 Requires Node 7 with the `--harmony` flag or greater.
 
     npm install simple-id
 
-Usage
------
+## Usage
 
 ```javascript
-const simpleId = require('simple-id');
+const simpleId = require("simple-id");
 simpleId();
 ```
 
@@ -25,11 +22,10 @@ permutations. A different length and/or alphabet can be passed as follows:
 
 ```javascript
 simpleId(9);
-simpleId(8, '0123456789abcdef');
+simpleId(8, "0123456789abcdef");
 ```
 
-Implementation
---------------
+## Implementation
 
 The implementation uses Node's cryptographically strong `crypto.randomBytes()`
 function and provides uniformly distributed random IDs. It has no other
