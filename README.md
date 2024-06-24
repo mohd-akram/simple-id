@@ -25,6 +25,6 @@ simpleId(8, "0123456789abcdef");
 
 ## Implementation
 
-The implementation uses Node's cryptographically strong `crypto.randomBytes()`
+The implementation uses the cryptographically strong `crypto.getRandomValues()`
 function and provides uniformly distributed random IDs. It has no other
 dependencies.

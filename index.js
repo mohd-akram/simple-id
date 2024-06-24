@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+const crypto = globalThis.crypto ?? require("crypto").webcrypto;
 
 module.exports = (length = 8, chars = "23456789abcdefghjkmnpqrstuvwxyz") => {
   const defaultChars = "0123456789abcdefghijklmnopqrstuvwxyz";
@@ -22,9 +22,14 @@ module.exports = (length = 8, chars = "23456789abcdefghjkmnpqrstuvwxyz") => {
 
   const threshold = randValues - (randValues % numValues);
 
+  let randomNumber;
+
+  const bytes = new Uint8Array(numBytes);
   do {
-    const bytes = crypto.randomBytes(numBytes);
-    var randomNumber = parseInt(bytes.toString("hex"), 16);
+    crypto.getRandomValues(bytes);
+    randomNumber = 0;
+    for (let i = 0; i < bytes.length; i++)
+      randomNumber = randomNumber * 0xff + bytes[i];
   } while (randomNumber >= threshold);
 
   randomNumber %= numValues;
