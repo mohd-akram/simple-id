@@ -27,7 +27,7 @@ function simpleId(length = 8, chars = "23456789abcdefghjkmnpqrstuvwxyz") {
     crypto.getRandomValues(bytes);
     randomNumber = 0;
     for (let i = 0; i < bytes.length; i++)
-      randomNumber = randomNumber * 0xff + bytes[i];
+      randomNumber = randomNumber * 256 + bytes[i];
   } while (randomNumber >= threshold);
 
   randomNumber %= numValues;
