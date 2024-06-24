@@ -1,8 +1,6 @@
 const crypto = globalThis.crypto ?? require("crypto").webcrypto;
 
-module.exports = (length = 8, chars = "23456789abcdefghjkmnpqrstuvwxyz") => {
-  const defaultChars = "0123456789abcdefghijklmnopqrstuvwxyz";
-
+function simpleId(length = 8, chars = "23456789abcdefghjkmnpqrstuvwxyz") {
   if (typeof length != "number" || !Number.isInteger(length))
     throw new TypeError("length must be an integer");
 
@@ -34,10 +32,17 @@ module.exports = (length = 8, chars = "23456789abcdefghjkmnpqrstuvwxyz") => {
 
   randomNumber %= numValues;
 
-  const randomId = randomNumber
+  const randomString = randomNumber
     .toString(chars.length)
-    .replace(/./g, (m) => chars[defaultChars.indexOf(m)])
-    .padStart(length, chars[0]);
+    .padStart(length, "0");
+
+  let randomId = "";
+  for (const c of randomString) {
+    const i = c.charCodeAt(0) - "a".charCodeAt(0);
+    randomId += chars[i < 0 ? i + "0".charCodeAt(0) + 1 : i + 10];
+  }
 
   return randomId;
-};
+}
+
+module.exports = simpleId;
