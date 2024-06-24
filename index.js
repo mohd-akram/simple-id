@@ -38,8 +38,8 @@ function simpleId(length = 8, chars = "23456789abcdefghjkmnpqrstuvwxyz") {
 
   let randomId = "";
   for (const c of randomString) {
-    const i = c.charCodeAt(0) - "a".charCodeAt(0);
-    randomId += chars[i < 0 ? i + "0".charCodeAt(0) + 1 : i + 10];
+    const i = c.charCodeAt(0) - "0".charCodeAt(0);
+    randomId += chars[i > 9 ? i - 39 : i];
   }
 
   return randomId;
