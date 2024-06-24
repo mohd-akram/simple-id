@@ -18,29 +18,18 @@ function simpleId(length = 8, chars = "23456789abcdefghjkmnpqrstuvwxyz") {
   if (randValues > Number.MAX_SAFE_INTEGER)
     throw new RangeError("Number of possible random IDs is too large");
 
-  const threshold = randValues - (randValues % numValues);
+  const threshold = randValues % numValues;
 
   let randomNumber;
-
   const bytes = new Uint8Array(numBytes);
-  do {
-    crypto.getRandomValues(bytes);
-    randomNumber = 0;
-    for (let i = 0; i < bytes.length; i++)
-      randomNumber = randomNumber * 256 + bytes[i];
-  } while (randomNumber >= threshold);
-
+  do randomNumber = crypto.getRandomValues(bytes).reduce((n, b) => n * 256 + b);
+  while (randomNumber < threshold);
   randomNumber %= numValues;
 
-  const randomString = randomNumber
-    .toString(chars.length)
-    .padStart(length, "0");
-
   let randomId = "";
-  for (const c of randomString) {
-    const i = c.charCodeAt(0) - "0".charCodeAt(0);
-    randomId += chars[i > 9 ? i - 39 : i];
-  }
+  for (let i = randomNumber; i > 0; i = Math.trunc(i / chars.length))
+    randomId = chars[i % chars.length] + randomId;
+  randomId = randomId.padStart(length, chars[0]);
 
   return randomId;
 }
