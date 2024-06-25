@@ -8,8 +8,8 @@ function simpleId(length = 8, chars = "23456789abcdefghjkmnpqrstuvwxyz") {
 
   if (length < 1) throw new RangeError("length must be greater than 0");
 
-  if (chars.length < 2 || chars.length > 36)
-    throw new RangeError("Length of chars must be between 2 and 36");
+  if (chars.length < 2)
+    throw new RangeError("Length of chars must be greater than 1");
 
   const numValues = chars.length ** length;
   const numBytes = Math.ceil(Math.log2(numValues) / 8);

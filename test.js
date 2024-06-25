@@ -56,10 +56,6 @@ test("invalid length", () => {
 
 test("invalid chars", () => {
   assert.throws(() => simpleId(defaultLength, "0"), RangeError);
-  assert.throws(
-    () => simpleId(defaultLength, "0123456789abcdefghijklmnopqrstuvwxyzA"),
-    RangeError
-  );
 });
 
 test("out of range", () => {
